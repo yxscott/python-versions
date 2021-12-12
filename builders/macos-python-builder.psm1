@@ -54,6 +54,10 @@ class macOSPythonBuilder : NixPythonBuilder {
             $env:CFLAGS += " -I$(brew --prefix sqlite3)/include"
             $env:CPPFLAGS += "-I$(brew --prefix sqlite3)/include"
         }
+        
+        if ($this.Version -eq "3.10.1") {
+            Execute-Command -Command "brew install libx11 libxext lifxft"
+        }
 
         Execute-Command -Command $configureString
     }
