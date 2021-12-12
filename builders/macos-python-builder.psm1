@@ -56,7 +56,7 @@ class macOSPythonBuilder : NixPythonBuilder {
         }
         
         if ($this.Version -eq "3.10.1") {
-            Execute-Command -Command "brew install libx11 libxext lifxft"
+            Execute-Command -Command "brew install libx11 libxext libxft"
         }
 
         Execute-Command -Command $configureString
