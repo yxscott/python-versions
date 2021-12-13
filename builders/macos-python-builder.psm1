@@ -22,6 +22,14 @@ class macOSPythonBuilder : NixPythonBuilder {
         [string] $platform
     ) : Base($version, $architecture, $platform) { }
 
+    [void] PrepareEnvironment() {
+        Execute-Command -Command "brew install zlib"
+        <#
+        .SYNOPSIS
+        Prepare system environment by installing dependencies and required packages.
+        #>
+    }
+
     [void] Configure() {
         <#
         .SYNOPSIS
@@ -55,17 +63,10 @@ class macOSPythonBuilder : NixPythonBuilder {
             $env:CPPFLAGS += "-I$(brew --prefix sqlite3)/include"
         }
 
-        Execute-Command -Command "brew install xquartz"
+        #Execute-Command -Command "brew install xquartz"
 
-         Execute-Command -Command "sudo ln -s /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk/System/Library/Frameworks/Tk.framework/Versions/8.5/Headers/X11/ /usr/local/include"
+        Execute-Command -Command "sudo ln -s /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk/System/Library/Frameworks/Tk.framework/Versions/8.5/Headers/X11/ /usr/local/include"
 
         Execute-Command -Command $configureString
-    }
-
-    [void] PrepareEnvironment() {
-        <#
-        .SYNOPSIS
-        Prepare system environment by installing dependencies and required packages.
-        #>
     }
 }
