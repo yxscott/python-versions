@@ -57,4 +57,11 @@ class macOSPythonBuilder : NixPythonBuilder {
 
         Execute-Command -Command $configureString
     }
+
+    [void] PrepareEnvironment() {
+        <#
+        .SYNOPSIS
+        Prepare system environment by installing dependencies and required packages.
+        #>
+    }
 }
