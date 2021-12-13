@@ -64,8 +64,8 @@ class macOSPythonBuilder : NixPythonBuilder {
         }
 
         if ($this.Version -ge "3.5.10") {
-            export LDFLAGS="-L/usr/local/opt/zlib/lib"
-            export CPPFLAGS="-I/usr/local/opt/zlib/include"
+            $env:LDFLAGS="-L/usr/local/opt/zlib/lib"
+            $env:CPPFLAGS="-I/usr/local/opt/zlib/include"
         }
 
         if ($this.Version -eq "2.7.18") {
