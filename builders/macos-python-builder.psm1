@@ -63,7 +63,15 @@ class macOSPythonBuilder : NixPythonBuilder {
             $env:CPPFLAGS += "-I$(brew --prefix sqlite3)/include"
         }
 
-        #Execute-Command -Command "brew install xquartz"
+        if ($this.Version -ge "3.5.10") {
+            export LDFLAGS="-L/usr/local/opt/zlib/lib"
+            export CPPFLAGS="-I/usr/local/opt/zlib/include"
+        }
+
+        if ($this.Version -eq "2.7.18") {
+            $configureString += " --disable-toolbox-glue"
+            $configureString += " --disable-framework"
+        }
 
         Execute-Command -Command "sudo ln -s /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk/System/Library/Frameworks/Tk.framework/Versions/8.5/Headers/X11/ /usr/local/include"
 
