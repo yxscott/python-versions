@@ -49,7 +49,7 @@ Describe "Tests" {
 
     if ($Version -ge "3.2.0") {
         It "Check if sqlite3 module is installed" {
-            "python ./sources/python-sqlite3.py" | Should -ReturnZeroExitCode
+            "python3 ./sources/python-sqlite3.py" | Should -ReturnZeroExitCode
         }
     }
 
@@ -66,12 +66,12 @@ Describe "Tests" {
         }
 
         It "Check if all required python modules are installed"  {
-            "python ./sources/python-modules.py" | Should -ReturnZeroExitCode
+            "python3 ./sources/python-modules.py" | Should -ReturnZeroExitCode
         }
 
         It "Check if python configuration is correct" {
             $nativeVersion = Convert-Version -version $Version
-            "python ./sources/python-config-test.py $Version $nativeVersion" | Should -ReturnZeroExitCode
+            "python3 ./sources/python-config-test.py $Version $nativeVersion" | Should -ReturnZeroExitCode
         }
 
         It "Check if shared libraries are linked correctly" {
