@@ -48,8 +48,8 @@ class macOSPythonBuilder : NixPythonBuilder {
         ### and then add the appropriate paths for the header and library files to configure command.
         ### Link to documentation (https://cpython-devguide.readthedocs.io/setup/#build-dependencies)
         if ($this.Version -lt "3.7.0") {
-            $env:LDFLAGS = "-L/usr/local/opt/openssl@1.1/lib"
-            $env:CFLAGS = "-I/usr/local/opt/openssl@1.1/include"
+            $env:LDFLAGS = "-L/usr/local/opt/openssl@1.1/lib -L/usr/local/opt/zlib/lib"
+            $env:CFLAGS = "-I/usr/local/opt/openssl@1.1/include -I/usr/local/opt/zlib/include"
         } else {
             $configureString += " --with-openssl=/usr/local/opt/openssl@1.1"
         }
@@ -61,16 +61,6 @@ class macOSPythonBuilder : NixPythonBuilder {
             $env:LDFLAGS += " -L$(brew --prefix sqlite3)/lib"
             $env:CFLAGS += " -I$(brew --prefix sqlite3)/include"
             $env:CPPFLAGS += "-I$(brew --prefix sqlite3)/include"
-        }
-
-        if ($this.Version -ge "3.5.10") {
-            $env:LDFLAGS="-L/usr/local/opt/zlib/lib"
-            $env:CPPFLAGS="-I/usr/local/opt/zlib/include"
-        }
-
-        if ($this.Version -eq "2.7.18") {
-            $configureString += " --disable-toolbox-glue"
-            $configureString += " --disable-framework"
         }
 
         Execute-Command -Command "sudo ln -s /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk/System/Library/Frameworks/Tk.framework/Versions/8.5/Headers/X11/ /usr/local/include"
