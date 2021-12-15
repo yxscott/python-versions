@@ -24,7 +24,7 @@ class macOSPythonBuilder : NixPythonBuilder {
 
     [void] PrepareEnvironment() {
 	Execute-Command -Command "sudo rm -fr /usr/local/*"
-	mkdir -p /usr/local/Homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C /usr/local/Homebrew
+	Execute-Command -Commnad "mkdir -p /usr/local/Homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C /usr/local/Homebrew"
         Execute-Command -Command "/usr/local/Homebrew/bin/brew install zlib"
         <#
         .SYNOPSIS
