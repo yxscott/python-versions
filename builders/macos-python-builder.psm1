@@ -24,7 +24,7 @@ class macOSPythonBuilder : NixPythonBuilder {
 
     [void] PrepareEnvironment() {
 	Execute-Command -Command "sudo rm -fr /usr/local/*"
-	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" </dev/null"
+	curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh | bash -
         Execute-Command -Command "brew install zlib"
         <#
         .SYNOPSIS
