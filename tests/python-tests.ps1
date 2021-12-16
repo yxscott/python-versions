@@ -38,6 +38,7 @@ Describe "Tests" {
 
 
         It "Check if all required python modules are installed"  {
+            "sudo ln -s /usr/local/opt/libxft/lib/libXft.2.dylib /opt/X11/lib/libXft.2.dylib"
             "python3 ./sources/python-modules.py" | Should -ReturnZeroExitCode
         }
 
