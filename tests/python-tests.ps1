@@ -38,7 +38,7 @@ Describe "Tests" {
 
 
         It "Check if all required python modules are installed"  {
-            "python ./sources/python-modules.py" | Should -ReturnZeroExitCode
+            "python3 ./sources/python-modules.py" | Should -ReturnZeroExitCode
         }
 
         It "Check if python configuration is correct" {
