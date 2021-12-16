@@ -23,9 +23,7 @@ class macOSPythonBuilder : NixPythonBuilder {
     ) : Base($version, $architecture, $platform) { }
 
     [void] PrepareEnvironment() {
-	Execute-Command -Command "sudo rm -fr /usr/local/*"
-	Execute-Command -Command "mkdir -p /usr/local/Homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C /usr/local/Homebrew"
-        Execute-Command -Command "/usr/local/Homebrew/bin/brew install zlib"
+        Execute-Command -Command "brew install zlib libxft libxext tcl-tk"
         <#
         .SYNOPSIS
         Prepare system environment by installing dependencies and required packages.
@@ -63,6 +61,10 @@ class macOSPythonBuilder : NixPythonBuilder {
             $env:LDFLAGS += " -L$(brew --prefix sqlite3)/lib"
             $env:CFLAGS += " -I$(brew --prefix sqlite3)/include"
             $env:CPPFLAGS += "-I$(brew --prefix sqlite3)/include"
+        }
+
+        if ($this.Version -eq "3.10.1") {
+            $configureString += "--with-tcltk-includes='-I/usr/local/opt/tcl-tk/include' --with-tcltk-libs='-L/usr/local/opt/tcl-tk/lib -ltcl8.6 -ltk8.6'"
         }
 
         Execute-Command -Command "sudo ln -s /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk/System/Library/Frameworks/Tk.framework/Versions/8.5/Headers/X11/ /usr/local/include"
