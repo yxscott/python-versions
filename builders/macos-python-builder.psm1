@@ -24,6 +24,8 @@ class macOSPythonBuilder : NixPythonBuilder {
 
     [void] PrepareEnvironment() {
         Execute-Command -Command "brew install zlib libxft libxext tcl-tk"
+        Execute-Command -Command "sudo mkdir -p /opt/X11/lib"
+        Execute-Command -Command "sudo ln -s /usr/local/opt/libxft/lib/libXft.2.dylib /opt/X11/lib/libXft.2.dylib"
         <#
         .SYNOPSIS
         Prepare system environment by installing dependencies and required packages.
