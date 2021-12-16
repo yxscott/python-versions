@@ -64,7 +64,8 @@ class macOSPythonBuilder : NixPythonBuilder {
         }
 
         if ($this.Version -eq "3.10.1") {
-            $configureString += "--with-tcltk-includes='-I/usr/local/opt/tcl-tk/include' --with-tcltk-libs='-L/usr/local/opt/tcl-tk/lib -ltcl8.6 -ltk8.6'"
+            $configureString += " --with-tcltk-includes='-I/usr/local/opt/tcl-tk/include'"
+            $configureString += " --with-tcltk-libs='-L/usr/local/opt/tcl-tk/lib -ltcl8.6 -ltk8.6'"
         }
 
         Execute-Command -Command "sudo ln -s /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk/System/Library/Frameworks/Tk.framework/Versions/8.5/Headers/X11/ /usr/local/include"
