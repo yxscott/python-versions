@@ -277,6 +277,7 @@ def check_missing_modules(expected_modules):
     for module in expected_modules:
         try:
             importlib.import_module(module)
+	    print(dir())
         except:
             missing.append(module)
     return missing
@@ -286,4 +287,5 @@ if missing_modules:
     print('The following modules are missing:')
     for module in missing_modules:
         print('  ', module)
+	print(dir())
     exit(1)
