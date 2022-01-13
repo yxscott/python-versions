@@ -57,11 +57,6 @@ class UbuntuPythonBuilder : NixPythonBuilder {
         Prepare system environment by installing dependencies and required packages.
         #>
 
-        if (($this.Version -gt "3.0.0") -and ($this.Version -lt "3.5.3")) {
-            Write-Host "Python3 versions lower than 3.5.3 are not supported"
-            exit 1
-        }
-
         ### Compile with tkinter support
         if ($this.Version -gt "3.0.0") {
             $tkinterInstallString = "sudo apt-get install -y --allow-downgrades python3-tk tk-dev"
